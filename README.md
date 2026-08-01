@@ -13,7 +13,8 @@ and real-world application.
 - Days 11-12: Data Cleaning, Real-World Analytics Patterns
 - Days 13-14: Statistical Functions, Interview Problems
 - Days 15-16: BI Dashboard Queries, Python + SQL Integration
-- Days 17-30: Advanced SQL (in progress)
+- Day 17: Recursive CTEs, Hierarchical Data, Org Chart Analytics
+- Days 18-30: Advanced SQL (in progress)
 
 ## Environment
 
