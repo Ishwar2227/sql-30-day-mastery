@@ -16,7 +16,8 @@ and real-world application.
 - Day 17: Recursive CTEs, Hierarchical Data, Org Chart Analytics
 - Day 18: Query Optimization, Partial/Covering Indexes,
           Connection Pooling, N+1 Problem, Production Patterns
-- Days 19-30: Advanced SQL (in progress)
+- Day 19: Real Dataset Project — E-Commerce Analytics, RFM Analysis,
+          Market Basket Analysis, Python BI Pipeline
 
 ## Environment
 

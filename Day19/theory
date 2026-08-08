@@ -1,0 +1,134 @@
+You'll build a proper e-commerce database with realistic data volumes. This replaces your practice tables with something closer to production scale.
+Step 1 — Create the Schema
+Run this in pgAdmin to create a new database called `ecommerce_project`:
+
+sql
+
+```sql
+-- Create tables
+CREATE TABLE dim_customers (
+    customer_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(100),
+    email VARCHAR(100),
+    city VARCHAR(50),
+    state VARCHAR(50),
+    age INT,
+    gender VARCHAR(10),
+    signup_date DATE,
+    is_active BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE dim_products (
+    product_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(100),
+    category VARCHAR(50),
+    subcategory VARCHAR(50),
+    price NUMERIC(10,2),
+    cost NUMERIC(10,2)
+);
+
+CREATE TABLE fact_orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES dim_customers(customer_id),
+    order_date DATE,
+    delivery_date DATE,
+    status VARCHAR(20),
+    payment_method VARCHAR(20),
+    city VARCHAR(50),
+    state VARCHAR(50)
+);
+
+CREATE TABLE fact_order_items (
+    item_id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES fact_orders(order_id),
+    product_id INT REFERENCES dim_products(product_id),
+    quantity INT,
+    unit_price NUMERIC(10,2),
+    discount_pct NUMERIC(5,2) DEFAULT 0
+);
+```
+
+#### Step 2 — Load Data
+
+sql
+
+```sql
+-- Customers
+INSERT INTO dim_customers (customer_name, email, city, state, age, gender, signup_date)
+VALUES
+('Aisha Sharma','aisha@gmail.com','Mumbai','Maharashtra',28,'F','2022-03-15'),
+('Rahul Mehta','rahul@yahoo.com','Delhi','Delhi',34,'M','2022-07-20'),
+('Priya Nair','priya@gmail.com','Bangalore','Karnataka',26,'F','2023-01-10'),
+('Amit Joshi','amit@gmail.com','Pune','Maharashtra',45,'M','2022-05-08'),
+('Sneha Reddy','sneha@outlook.com','Hyderabad','Telangana',31,'F','2023-03-22'),
+('Vikram Das','vikram@gmail.com','Chennai','Tamil Nadu',38,'M','2022-09-14'),
+('Divya Pillai','divya@gmail.com','Kochi','Kerala',29,'F','2023-06-01'),
+('Karan Singh','karan@yahoo.com','Jaipur','Rajasthan',42,'M','2022-11-30'),
+('Ananya Iyer','ananya@gmail.com','Mumbai','Maharashtra',25,'F','2023-08-15'),
+('Rohit Verma','rohit@gmail.com','Delhi','Delhi',33,'M','2022-04-25'),
+('Meera Krishnan','meera@gmail.com','Bangalore','Karnataka',27,'F','2023-02-14'),
+('Suresh Patel','suresh@yahoo.com','Ahmedabad','Gujarat',50,'M','2022-06-18'),
+('Lakshmi Rao','lakshmi@gmail.com','Hyderabad','Telangana',36,'F','2023-04-07'),
+('Arjun Nanda','arjun@gmail.com','Pune','Maharashtra',23,'M','2023-09-20'),
+('Pooja Gupta','pooja@outlook.com','Mumbai','Maharashtra',30,'F','2022-08-12');
+
+-- Products
+INSERT INTO dim_products (product_name, category, subcategory, price, cost) VALUES
+('MacBook Pro 14','Electronics','Laptops',125000,85000),
+('iPhone 15','Electronics','Phones',80000,55000),
+('Samsung Galaxy S24','Electronics','Phones',70000,48000),
+('Sony WH-1000XM5','Electronics','Headphones',25000,15000),
+('Dell Monitor 27"','Electronics','Monitors',35000,22000),
+('Levi 511 Jeans','Fashion','Bottoms',3500,1200),
+('Nike Air Max','Fashion','Footwear',8500,3500),
+('Raymond Suit','Fashion','Formals',15000,7000),
+('Zara Dress','Fashion','Womens',4500,1800),
+('Titan Watch','Fashion','Accessories',6500,2800),
+('Rice Cooker Pro','Home','Kitchen',4500,2000),
+('Philips Air Fryer','Home','Kitchen',8000,3500),
+('IKEA Study Desk','Home','Furniture',12000,5500),
+('Godrej Bed Frame','Home','Furniture',25000,12000),
+('Prestige Mixer','Home','Kitchen',3000,1200);
+
+-- Orders
+INSERT INTO fact_orders (customer_id, order_date, delivery_date, status, payment_method, city, state)
+VALUES
+(1,'2024-01-05','2024-01-08','delivered','UPI','Mumbai','Maharashtra'),
+(2,'2024-01-12','2024-01-16','delivered','Credit Card','Delhi','Delhi'),
+(3,'2024-01-20',NULL,'cancelled','Debit Card','Bangalore','Karnataka'),
+(4,'2024-02-03','2024-02-07','delivered','UPI','Pune','Maharashtra'),
+(5,'2024-02-14',NULL,'processing','Net Banking','Hyderabad','Telangana'),
+(1,'2024-02-18','2024-02-22','delivered','UPI','Mumbai','Maharashtra'),
+(6,'2024-03-01','2024-03-05','delivered','Credit Card','Chennai','Tamil Nadu'),
+(7,'2024-03-10','2024-03-14','delivered','UPI','Kochi','Kerala'),
+(8,'2024-03-22',NULL,'cancelled','Debit Card','Jaipur','Rajasthan'),
+(9,'2024-04-02','2024-04-06','delivered','UPI','Mumbai','Maharashtra'),
+(10,'2024-04-15','2024-04-19','shipped','Credit Card','Delhi','Delhi'),
+(11,'2024-04-28','2024-05-02','delivered','Net Banking','Bangalore','Karnataka'),
+(2,'2024-05-10',NULL,'processing','UPI','Delhi','Delhi'),
+(12,'2024-05-20','2024-05-24','delivered','Credit Card','Ahmedabad','Gujarat'),
+(4,'2024-06-01','2024-06-05','delivered','UPI','Pune','Maharashtra'),
+(13,'2024-06-15','2024-06-19','delivered','Debit Card','Hyderabad','Telangana'),
+(14,'2024-07-02','2024-07-06','delivered','UPI','Pune','Maharashtra'),
+(15,'2024-07-20',NULL,'cancelled','Credit Card','Mumbai','Maharashtra'),
+(1,'2024-08-05','2024-08-09','delivered','UPI','Mumbai','Maharashtra'),
+(5,'2024-08-18','2024-08-22','delivered','Net Banking','Hyderabad','Telangana');
+
+-- Order Items
+INSERT INTO fact_order_items (order_id, product_id, quantity, unit_price, discount_pct)
+VALUES
+(1,1,1,125000,5),(1,4,1,25000,0),
+(2,2,1,80000,10),(2,6,2,3500,0),
+(3,3,1,70000,0),(4,5,1,35000,5),
+(4,11,1,4500,0),(5,12,1,8000,10),
+(6,7,2,8500,5),(6,9,1,4500,0),
+(7,10,1,6500,0),(8,13,1,12000,15),
+(9,14,1,25000,10),(10,2,1,80000,5),
+(10,4,2,25000,0),(11,8,1,15000,20),
+(12,6,3,3500,0),(13,1,1,125000,0),
+(14,15,2,3000,0),(15,11,2,4500,5),
+(16,3,1,70000,10),(17,7,2,8500,0),
+(18,9,3,4500,15),(19,2,1,80000,5),
+(19,5,1,35000,0),(20,12,1,8000,0);
+```
+
