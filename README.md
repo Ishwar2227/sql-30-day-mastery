@@ -18,6 +18,8 @@ and real-world application.
           Connection Pooling, N+1 Problem, Production Patterns
 - Day 19: Real Dataset Project — E-Commerce Analytics, RFM Analysis,
           Market Basket Analysis, Python BI Pipeline
+- Day 20: Mock Interview Assessment — Window Functions, 
+          Retention Analysis, Query Optimization, Fraud Detection
 
 ## Environment
 
