@@ -20,6 +20,8 @@ and real-world application.
           Market Basket Analysis, Python BI Pipeline
 - Day 20: Mock Interview Assessment — Window Functions, 
           Retention Analysis, Query Optimization, Fraud Detection
+- Days 21-22: Consolidation — Consecutive Periods, Retention Analysis,
+              Rolling Averages, Combined Pattern Problems
 
 ## Environment
 
