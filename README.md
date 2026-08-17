@@ -22,6 +22,8 @@ and real-world application.
           Retention Analysis, Query Optimization, Fraud Detection
 - Days 21-22: Consolidation — Consecutive Periods, Retention Analysis,
               Rolling Averages, Combined Pattern Problems
+- Day 23: STRING_AGG, ARRAY_AGG, GENERATE_SERIES, JSON Functions,
+          Co-purchase Analysis, Customer API JSON Response
 
 ## Environment
 
