@@ -24,6 +24,9 @@ and real-world application.
               Rolling Averages, Combined Pattern Problems
 - Day 23: STRING_AGG, ARRAY_AGG, GENERATE_SERIES, JSON Functions,
           Co-purchase Analysis, Customer API JSON Response
+- Day 24: ML Feature Engineering — RFM Features, Lag Features, 
+          Binary Flags, Churn Labels, Train/Test Split, 
+          Python ML Pipeline
 
 ## Environment
 
