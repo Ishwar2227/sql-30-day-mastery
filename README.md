@@ -27,6 +27,9 @@ and real-world application.
 - Day 24: ML Feature Engineering — RFM Features, Lag Features, 
           Binary Flags, Churn Labels, Train/Test Split, 
           Python ML Pipeline
+- Day 25: Capstone Project — Customer Analytics Platform,
+          3 Business Views, Churn ML Pipeline, 
+          Market Basket Analysis, Portfolio Documentation
 
 ## Environment
 
