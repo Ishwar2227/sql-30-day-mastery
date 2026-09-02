@@ -30,6 +30,9 @@ and real-world application.
 - Day 25: Capstone Project — Customer Analytics Platform,
           3 Business Views, Churn ML Pipeline, 
           Market Basket Analysis, Portfolio Documentation
+- Day 26: SQL Gaps Closure — Double Aggregation Fix,
+          Multi-Condition JOIN, Correlated Subqueries,
+          Capstone Bug Fixes
 
 ## Environment
 

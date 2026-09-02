@@ -24,11 +24,16 @@
 - The churn pipeline creates customer-level features including recency_days, frequency, monetary, category_diversity, and cancelled_pct. A churn label is created using the rule that customers inactive for more than 60 days are considered churned. The features are cleaned, scaled using StandardScaler, split into training/testing data, and used to train a Logistic Regression model.
 
 ## Key Findings
-- Electronics drives 68% of total revenue despite being 33% of product catalog
-- 6 of 15 customers (40%) are high churn risk (inactive > 60 days)
-- Maharashtra generates the highest revenue of any state at ₹X
-- Market basket shows Sony Headphones + MacBook Pro as most frequent pair
-- Logistic regression achieves X% accuracy on churn prediction
+
+- The business generated a total revenue of **₹2,688,225**, with **15 customers** placing **20 orders**, resulting in an ARPU of **₹179,215**.
+
+- **11 out of 15 customers (73.3%)** were classified as high churn-risk, indicating a significant customer-retention concern.
+
+- **Rahul Mehta, Ananya Iyer, and Priya Nair** were identified as the top 3 high-value customers at high churn risk, with lifetime spending of **₹612,000, ₹378,000, and ₹210,000** respectively.
+
+- **Home** was identified as the most profitable product category, although its total profit was **-₹16,650**, indicating that the highest-performing category by profit still operated at an overall loss.
+
+- The Logistic Regression churn model achieved **80% accuracy** on the test set. However, the classification report showed that the model did not correctly identify the single non-churned customer in the test set, so the accuracy should be interpreted cautiously.
 
 ## How to Run
 1. Create the PostgreSQL Database
