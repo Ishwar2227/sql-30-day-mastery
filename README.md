@@ -33,6 +33,8 @@ and real-world application.
 - Day 26: SQL Gaps Closure — Double Aggregation Fix,
           Multi-Condition JOIN, Correlated Subqueries,
           Capstone Bug Fixes
+- Day 27: Production Pipelines — ETL Functions, Incremental Loading,
+          Chunked Processing, Pipeline Scheduler, Data Quality Monitoring
 
 ## Environment
 
