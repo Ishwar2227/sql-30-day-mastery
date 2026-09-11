@@ -35,6 +35,9 @@ and real-world application.
           Capstone Bug Fixes
 - Day 27: Production Pipelines — ETL Functions, Incremental Loading,
           Chunked Processing, Pipeline Scheduler, Data Quality Monitoring
+- Day 28: Second Mock Interview — Nth Value Subqueries, DENSE_RANK 
+          with NULLs, Consecutive Periods, Retention, Rolling Averages, 
+          Churn Risk Flagging
 
 ## Environment
 
