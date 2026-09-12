@@ -204,28 +204,41 @@ ORDER BY cs.customer_id, cs.month;
 -- days relative to the dataset's most recent order) or "Low risk".
 -- Then show what percentage of customers are High risk.
 
-WITH customer_last_order AS(
-	SELECT 
-		customer_id,
-		MAX(order_date) AS last_order_date
-	FROM fact_orders
-	GROUP BY customer_id
+WITH customer_last_order AS (
+    SELECT 
+        customer_id,
+        MAX(order_date) AS last_order_date
+    FROM fact_orders
+    GROUP BY customer_id
 ),
-dataset_latest_order AS(
-	SELECT 
-		MAX(order_date) AS latest_order_date
-	FROM fact_orders
+dataset_latest_order AS (
+    SELECT 
+        MAX(order_date) AS latest_order_date
+    FROM fact_orders
+),
+risk_report AS (
+    SELECT 
+        clo.customer_id,
+        clo.last_order_date,
+
+        CASE 
+            WHEN dlo.latest_order_date - clo.last_order_date >= 60
+                THEN 'High risk'
+            ELSE 'Low risk'
+        END AS risk_level
+
+    FROM customer_last_order clo
+    CROSS JOIN dataset_latest_order dlo
 )
-SELECT 
-	clo.customer_id,
-	clo.last_order_date,
-	dlo.latest_order_date,
-	dlo.latest_order_date - clo.last_order_date AS days_since_last_order,
-	CASE 
-		WHEN dlo.latest_order_date - clo.last_order_date >=60
-			THEN 'High risk'
-		ELSE 'Low risk'
-	END AS risk_level
-FROM customer_last_order clo
-CROSS JOIN dataset_latest_order dlo
-ORDER BY clo.customer_id;
+SELECT
+    customer_id,
+    last_order_date,
+    risk_level,
+    ROUND(
+        100.0 * COUNT(*) FILTER (WHERE risk_level = 'High risk')
+        OVER ()
+        / COUNT(*) OVER (),
+        2
+    ) AS pct_high_risk
+FROM risk_report
+ORDER BY customer_id;

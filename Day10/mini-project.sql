@@ -17,8 +17,6 @@
 -- Transaction: Insert one new test customer and one test order in a single transaction. Commit it. Then SELECT to verify.
 
 
-
-
 -- Business Purpose:
 -- Provides a list of all active customers for reporting.
 -- Includes customer location, email, and signup era.
